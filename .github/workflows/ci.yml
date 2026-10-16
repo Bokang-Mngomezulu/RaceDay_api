@@ -19,12 +19,11 @@ jobs:
       with:
         dotnet-version: '8.0' # Change to '9.0' if you are using .NET 9
 
-    # This debug step will print the exact path of your solution file in the logs
-    - name: Find Solution File (Debug)
-      run: find . -name "*.sln"
+    - name: Restore Dependencies
+      run: dotnet restore
 
-    - name: Restore, Build and Test
-      run: |
-        dotnet restore
-        dotnet build --no-restore --configuration Release
-        dotnet test --no-build --verbosity normal
+    - name: Build Solution
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run Tests
+      run: dotnet test --no-build --verbosity normal
