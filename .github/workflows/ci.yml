@@ -17,7 +17,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0' # Change to '9.0' if you are using .NET 9
+        dotnet-version: '8.0'
 
     - name: Restore Dependencies
       run: dotnet restore
@@ -26,4 +26,4 @@ jobs:
       run: dotnet build --no-restore --configuration Release
 
     - name: Run Tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normall
