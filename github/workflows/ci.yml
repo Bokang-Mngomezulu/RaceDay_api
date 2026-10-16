@@ -1,0 +1,30 @@
+name: RaceDay CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout your code from GitHub
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Setup .NET SDK (Change to '9.0' if your project uses .NET 9)
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0'
+
+    # 3. Restore, Build, and Test inside your project folder
+    - name: Restore, Build and Test
+      working-directory: Prog_poe_part2
+      run: |
+        dotnet restore RaceDay_api.sln
+        dotnet build RaceDay_api.sln --no-restore --configuration Release
+        dotnet test RaceDay_api.sln --no-build --verbosity normal
