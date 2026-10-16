@@ -11,20 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout your code from GitHub
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # 2. Setup .NET SDK (Change to '9.0' if your project uses .NET 9)
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0'
+        dotnet-version: '8.0' # Change to '9.0' if you are using .NET 9
 
-    # 3. Restore, Build, and Test inside your project folder
+    # This debug step will print the exact path of your solution file in the logs
+    - name: Find Solution File (Debug)
+      run: find . -name "*.sln"
+
     - name: Restore, Build and Test
-      working-directory: Prog_poe_part2
       run: |
-        dotnet restore RaceDay_api.sln
-        dotnet build RaceDay_api.sln --no-restore --configuration Release
-        dotnet test RaceDay_api.sln --no-build --verbosity normal
+        dotnet restore
+        dotnet build --no-restore --configuration Release
+        dotnet test --no-build --verbosity normal
